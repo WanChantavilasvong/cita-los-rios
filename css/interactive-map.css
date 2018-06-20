@@ -1,0 +1,69 @@
+body {
+  height: 600px;
+  width: 1200px;
+  background-color: #eeeeee;
+}
+#map {
+   width:50%;
+   height:100%;
+   float: right;
+ }
+#bar {
+ width: 50%;
+ height: 150px;
+ float: left;
+}
+
+/* New Staff*/
+#graphs {
+ width: 50%;
+ height: 450px;
+ float: left;
+}
+.area {
+ //fill: #e7e7e7;
+ fill: transparent;
+}
+
+.overlay {
+ fill: none;
+ pointer-events: all;
+}
+.focusLine {
+ stroke: blue;
+ stroke-dasharray: 3, 3;
+ opacity: 0.5;
+}
+/* New Staff END*/
+
+.line {
+ stroke-width: 2;
+ fill: none;
+ stroke: #47885e;
+}
+.bar {
+ fill: #999999; /*green #47885e*/
+}
+.bartext{
+ font: 10px sans-serif;
+}
+.active {
+ fill: #47885e;
+}
+.axis {
+ font: 10px sans-serif;
+}
+.axis path,
+.axis line {
+ fill: none;
+ stroke: #000;
+ shape-rendering: crispEdges;
+}
+path.leaflet-clickable {
+ stroke-opacity: 1;
+ stroke-width: 2px;
+}
+/*.textcircle {
+ fill: none;
+ stroke: steelblue;
+}*/

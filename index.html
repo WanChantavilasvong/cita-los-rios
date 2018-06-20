@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Dancing Rivers</title>
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="css/scrolling-nav.css" rel="stylesheet">
+    <script src="js/scrolling-nav.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://d3js.org/d3.v4.min.js" type="text/javascript"></script>
+  </head>
+
+  <body id="page-top">
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
+      <div class="container">
+        <a class="navbar-brand js-scroll-trigger" target="_blank" href="https://www.utec.edu.pe/noticias/utec-inauguro-centro-de-investigacion-y-tecnologia-del-agua-cita-en-peru">UTEC CITA</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#page-top">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#intro">Intro</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#rivers">Rivers</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#method">Method</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#team">Team</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="downloads.html" target="_blank">Downloads</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <header class="bg-primary">
+      <div class="container text-center">
+        <h1>Dancing Rivers</h1>
+        <p class="lead">The science behind the movements of the four Peruvian rivers:
+        </br>Marañón, Huallaga, Ucayali and Amazonas.</p>
+      </div>
+      <img width="100%" src="img/river.jpg">
+    </header>
+
+
+    <section id="intro">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 mx-auto">
+            <h2>Introduction</h2>
+            <p class="lead">Water, as often said, is a shapeshifting element that constantly adapts itself to fit the forms of its container, but that is only true for sitting water with no movement--no energy. When water moves, however, the body of water that flows at various speed can have so much energy that it can shift the shape of its container.</p>
+            <p class="lead">Rivers are great examples. Through time rivers create erosion, deposit sediments, and consequently shift their own shapes as though they can dance. Sometimes they bend further, sometimes they stretch out, and sometimes they split off to form islands and branches. Gravitation is the main source of energy which makes water flow. However, there is more to gravity that makes rivers move and dance in certain ways.</p>
+          </div>
+        </div>
+      </div>
+      <div id="river-map"></div>
+      <script>
+        // -------------------------------------
+        // VARIABLES
+        var width=1500,
+        	height=300;
+
+        // -------------------------------------
+        // map variables
+        var amazonasMap= d3.select("#river-map").append("svg")
+        	.attr("width", width)
+        	.attr("height", height);
+
+        var albersProjection = d3.geoAlbers()
+        	.scale( 14000 )
+        	.rotate( [77.5650,0] )
+        	.center( [0,-3.8493] )
+        	.translate( [width/2,height/2] )
+
+        var path = d3.geoPath()
+        	.projection(albersProjection);
+
+        // -------------------------------------
+        // graph (river width) variables
+        var amazonasWidth= d3.select("#river-width").append("svg")
+          .attr("width", width-20)
+          .attr("height", height-20);
+
+        // -------------------------------------
+        // DATA
+        d3.queue()
+        	.defer(d3.json, "data/amazonas_2017.geojson")
+        	.await(ready);
+
+        // -------------------------------------
+        // SVGs
+        function ready(error, river) {
+        	if (error) throw error;
+
+        	amazonasMap.append("g")
+        	  .selectAll("path")
+        	    .data(river.features)
+        	  .enter().append("path")
+        	    .attr("d", path)
+        			.style("fill", "#000")
+              .style("opacity", 0.8)
+        	    .style("stroke", "none")
+          };
+      </script>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 mx-auto">
+            <p class="lead">Their dance moves, however, are not on a daily basis: sometimes it takes months, years, decades, or centuries for us to notice changes. Conversely, human settlements are not as free flowing as rivers. Buildings, infrastructures, and riverbanks are often built to last, while rivers always want to move. Thus any intervention made upon rivers, be it to constrain or to ease the flow, rivers will react differently as well. Rivers with strong current can destroy concrete walls, rivers with weak current can later become sitting water, and rivers with high sediment can also create new land masses.</p>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="rivers">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 mx-auto">
+            <h2>Rivers</h2>
+            <p class="lead">In July 2018, the government is going to dredge the Amazon, Marañón, Huallaga and Ucayali rivers so that large ships can go through more easily. For us human, this means that there will be more shipment capacity, more economic opportunities, and less accidents along the waterway. For the rivers, however, we do not really know how dredging will affect the way they move, which can further affect the ecosystems within and adjacent to them. Thus, to learn how rivers move, we need to understand them before the intervention or the dredging takes place and that is what this research focuses on. You can click at each rivers below to see the various measurements we have done along each river. (For more information on what each variable means and how we measured and calculated it, click here.)</p>
+          </div>
+        </div>
+        <img src="img/map.jpg" width="100%">
+      </div>
+    </section>
+
+    <section id="methods">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 mx-auto">
+            <h2>Methods</h2>
+            <p class="lead">This guide has been elaborated with the purpose of showing the methodology followed for the characterization of the meandric and multichannel rivers in four rivers of the Peruvian Amazon: Marañón, Huallaga, Ucayali and Amazonas.</p>
+            <p class="lead">Meandric rivers are those that form curves in their path, which are formed due to the adjustment of the channel to the slope (Charlton, 2008). The channels evolve over time from the migration of the curves and present, on the one hand, an erosion zone and, on the other hand, a deposition zone. Multichannel rivers are those that present a network of divergent and converging channels that form stable islands with vegetation (Taylor, 2002). These islands allow housing population centers and agricultural activities on them, as in the case of many areas along the Amazon River. The methodology used is based on the articles by Dominguez, Abad, Gutierrez and Ponte and García, Abad, Escobar and Ortals, through which the parameters to be obtained for each river type and the tools to be used to obtain them were determined.</p>
+            <p class="lead"> </p>
+
+            <img src="img/parameters.png" width="100%">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="Team">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 mx-auto">
+            <h2>Team</h2>
+            <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vero odio fugiat voluptatem dolor, provident officiis, id iusto! Obcaecati incidunt, qui nihil beatae magnam et repudiandae ipsa exercitationem, in, quo totam.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-5 bg-dark">
+      <div class="container">
+        <p class="m-0 text-center text-white">Copyright &copy; Your Website 2017</p>
+      </div>
+      <!-- /.container -->
+    </footer>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom JavaScript for this theme -->
+    <script src="js/scrolling-nav.js"></script>
+
+  </body>
+
+</html>
